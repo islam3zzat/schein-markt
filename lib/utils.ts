@@ -5,7 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function convertToJsObject<T>(obj: T): T {
+export function convertToJsObject<T>(obj: T) {
   return JSON.parse(JSON.stringify(obj));
 }
 

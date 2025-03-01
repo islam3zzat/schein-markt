@@ -5,5 +5,6 @@ export type ProductDraft = z.infer<typeof productDraftSchema>;
 export type Product = ProductDraft & {
   id: string;
   rating: number;
+  numReviews: number;
   createdAt: Date;
 };

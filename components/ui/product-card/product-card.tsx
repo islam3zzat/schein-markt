@@ -24,7 +24,11 @@ export const ProductCard = ({ product }: { product: Product }) => {
         </Link>
         <div className="flex-between gap-4">
           <p>{product.rating} stars</p>
-          <ProductPrice stock={product.stock} price={product.price} />
+          {product.stock > 0 ? (
+            <ProductPrice price={product.price} />
+          ) : (
+            <p className="text-destructive">Out of stock</p>
+          )}
         </div>
       </CardContent>
     </Card>
