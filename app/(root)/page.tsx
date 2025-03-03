@@ -12,7 +12,7 @@ const HomePage = async () => {
 
   return (
     <>
-      <ProductList products={products} title="Newest Arrivals" />
+      <ProductList products={products} title="New Arrivals" />
       <Button>ScheinMarkt</Button>
     </>
   );
