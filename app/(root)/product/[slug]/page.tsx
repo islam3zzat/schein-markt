@@ -1,9 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ProductPrice } from "@/components/ui/product-card/product-price";
+import { ProductPrice } from "@/components/product/product-card/product-price";
 import { getProductBySlug } from "@/lib/actions/product-actions";
 import { notFound } from "next/navigation";
+import { ProductImages } from "@/components/product/product-images";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -21,7 +22,9 @@ const ProductDetailsPage = async ({ params }: Props) => {
       <section>
         <div className="grid grid-cols-1 md:grid-cols-5">
           {/* Images column */}
-          <div className="col-span-2"></div>
+          <div className="col-span-2">
+            <ProductImages images={product.images} />
+          </div>
           {/* Details column */}
           <div className="col-span-2 p-5">
             <div className="flex flex-col gap-8">

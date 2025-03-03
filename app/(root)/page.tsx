@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Button } from "@/components/ui/button";
-import { ProductList } from "@/components/ui/product-list/product-list";
+import { ProductList } from "@/components/product/product-list/product-list";
 import { getLatestProducts } from "@/lib/actions/product-actions";
 
 export const metadata: Metadata = {
