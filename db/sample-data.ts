@@ -4,14 +4,14 @@ export const sampleData = {
   users: [
     {
       name: "John",
-      email: "admin@example.com",
-      password: hashSync("123456", 10),
+      email: "admin-user@example.com",
+      password: hashSync("asdasd", 10),
       role: "admin",
     },
     {
       name: "Jane",
-      email: "user@example.com",
-      password: hashSync("123456", 10),
+      email: "normal-user@example.com",
+      password: hashSync("asdasd", 10),
       role: "user",
     },
   ],

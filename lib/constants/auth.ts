@@ -1,4 +1,4 @@
 export const SignInDefaultValues = {
-  email: "admin@example.com",
-  password: "123456",
+  email: process.env.DEFAULT_LOGIN_EMAIL || "",
+  password: process.env.DEFAULT_LOGIN_PASSWORD || "",
 };
