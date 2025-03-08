@@ -72,6 +72,9 @@ export const config: NextAuthConfig = {
     async session({ session, user, trigger, token }) {
       if (session.user && token.sub) {
         session.user.id = token.sub;
+        // @ts-expect-error role is not in the user type
+        session.user.role = token.role;
+        session.user.name = token.name;
       }
 
       // If there is an update, set the user name
@@ -80,6 +83,19 @@ export const config: NextAuthConfig = {
       }
 
       return session;
+    },
+    async jwt({ token, user }) {
+      // Assigns user fields to the token
+      if (user) {
+        // @ts-expect-error role is not in the user type
+        token.role = user.role;
+
+        if (user.name === "NO_NAME") {
+          token.name = (user.email || "").split("@")[0];
+        }
+      }
+
+      return token;
     },
   },
 };
