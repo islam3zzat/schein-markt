@@ -3,34 +3,48 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { signInWithCredentials } from "@/lib/actions/user-actions";
+import { signUpWithCredentials } from "@/lib/actions/user-actions";
 import { SignInDefaultValues } from "@/lib/constants/auth";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
-const SignInButton = () => {
+const SignUpButton = () => {
   const { pending } = useFormStatus();
 
   return (
     <Button disabled={pending} className="w-full" variant="default">
-      {pending ? "Signing in..." : "Sign In"}
+      {pending ? "Signing up..." : "Sign Up"}
     </Button>
   );
 };
 
-export const CredentialsSignInForm = () => {
+export const CredentialsSignUpForm = () => {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/";
-  const [data, action] = useActionState(signInWithCredentials, {
+  const [data, action] = useActionState(signUpWithCredentials, {
     success: false,
     message: "",
+    fieldErrors: {},
   });
 
   return (
     <form className="space-y-6" action={action}>
       <input type="hidden" name="callbackUrl" value={callbackUrl} />
+      <div>
+        <Label htmlFor="name">Name</Label>
+        <Input
+          id="name"
+          name="name"
+          type="text"
+          autoComplete="name"
+          defaultValue={SignInDefaultValues.name || ""}
+          required
+        />
+        {/* error message */}
+        <div className="text-destructive">{data?.fieldErrors?.email}</div>
+      </div>
       <div>
         <Label htmlFor="email">Email</Label>
         <Input
@@ -41,6 +55,8 @@ export const CredentialsSignInForm = () => {
           defaultValue={SignInDefaultValues?.email || ""}
           required
         />
+        {/* error message */}
+        <div className="text-destructive">{data?.fieldErrors?.email}</div>
       </div>
       <div>
         <Label htmlFor="password">Password</Label>
@@ -52,9 +68,26 @@ export const CredentialsSignInForm = () => {
           defaultValue={SignInDefaultValues?.password || ""}
           required
         />
+        {/* error message */}
+        <div className="text-destructive">{data?.fieldErrors?.password}</div>
       </div>
       <div>
-        <SignInButton />
+        <Label htmlFor="confirmPassword">Confirm Password</Label>
+        <Input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          autoComplete="password"
+          defaultValue={SignInDefaultValues.password || ""}
+          required
+        />
+        {/* error message */}
+        <div className="text-destructive">
+          {data?.fieldErrors?.confirmPassword}
+        </div>
+      </div>
+      <div>
+        <SignUpButton />
       </div>
 
       {data && !data.success ? (
