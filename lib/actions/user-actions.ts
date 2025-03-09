@@ -120,5 +120,5 @@ export async function signUpWithCredentials(
 
 export async function signOutUser() {
   await signOut();
-  return { success: true, message: "Sign out successful" };
+  return;
 }
