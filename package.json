@@ -9,7 +9,9 @@
     "lint": "next lint",
     "seed:db": "tsx db/seed",
     "prisma:studio": "prisma studio",
-    "migrate:dev": "prisma migrate dev",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:migrate": "prisma migrate",
+    "prisma:generate": "prisma generate",
     "postinstall": "prisma generate"
   },
   "dependencies": {
