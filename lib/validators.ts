@@ -46,3 +46,5 @@ export const signUpFormSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export const cartItemSchema = z.object({});
