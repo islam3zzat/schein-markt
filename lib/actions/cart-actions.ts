@@ -1,6 +1,6 @@
 "use server";
 
-import { CartItem } from "@/types/cart";
+import { Cart, CartDraft, CartItem } from "@/types/cart";
 import { formatPrismaErrors } from "../error-utils";
 import { cookies } from "next/headers";
 import { auth } from "@/auth";
@@ -190,5 +190,5 @@ export async function getMyCart() {
   });
   if (!cart) return;
 
-  return convertToJsObject(cart);
+  return convertToJsObject(cart) as Cart;
 }

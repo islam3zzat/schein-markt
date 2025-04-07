@@ -4,8 +4,8 @@ import { ReactNode } from "react";
 
 type Props = {
   isPending: boolean;
-  actionType: "+" | "-";
-  currentAction: React.RefObject<"+" | "-" | null>;
+  id: string;
+  currentActiveItem: React.RefObject<string | null>;
   onClick: () => void;
   icon: ReactNode;
   className?: string;
@@ -14,18 +14,23 @@ type Props = {
 
 export const CartActionButton = ({
   isPending,
-  actionType,
-  currentAction,
+  id: actionType,
+  currentActiveItem: currentAction,
   onClick,
   icon,
-  className = "h-3 w-3 rounded-xl",
+  className = "h-4 w-4 rounded-xl",
   variant = "default",
 }: Props) => {
   const showLoader = isPending && currentAction.current === actionType;
 
   return (
-    <Button onClick={onClick} className={className} variant={variant}>
-      {showLoader ? <Loader className="h-3 w-3 animate-spin" /> : icon}
+    <Button
+      onClick={onClick}
+      disabled={isPending}
+      className={className}
+      variant={variant}
+    >
+      {showLoader ? <Loader className="h-4 w-4 animate-spin" /> : icon}
     </Button>
   );
 };

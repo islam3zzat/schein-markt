@@ -95,8 +95,8 @@ export const AddToCart = ({ cart, item }: Props) => {
       {quantity > 1 ? (
         <CartActionButton
           isPending={isPending}
-          currentAction={action}
-          actionType="-"
+          currentActiveItem={action}
+          id="-"
           onClick={handleRemoveFromCart}
           icon={<Minus className="h-3 w-3" />}
           variant="outline"
@@ -104,8 +104,8 @@ export const AddToCart = ({ cart, item }: Props) => {
       ) : (
         <CartActionButton
           isPending={isPending}
-          currentAction={action}
-          actionType="-"
+          currentActiveItem={action}
+          id="-"
           onClick={handleRemoveFromCart}
           icon={<Trash className="h-3 w-3" />}
           variant="outline"
@@ -117,8 +117,8 @@ export const AddToCart = ({ cart, item }: Props) => {
       </div>
       <CartActionButton
         isPending={isPending}
-        currentAction={action}
-        actionType="+"
+        currentActiveItem={action}
+        id="+"
         onClick={handleAddToCart}
         icon={<Plus className="h-3 w-3" />}
       />
