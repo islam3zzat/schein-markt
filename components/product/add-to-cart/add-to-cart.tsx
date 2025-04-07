@@ -5,18 +5,22 @@ import { CartItem } from "@/types/cart";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Plus, Minus, Trash } from "lucide-react";
+import { useRef, useTransition } from "react";
+import { CartActionButton } from "./cart-action-button";
 type Props = {
   cart?: { items: CartItem[] };
   item: CartItem;
 };
 export const AddToCart = ({ cart, item }: Props) => {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const action = useRef<"+" | "-" | null>(null);
   const itemInCart = cart?.items.find(
     (cartItem) => cartItem.productId === item.productId
   );
   const quantity = itemInCart?.quantity || 0;
 
-  const handleRemoveFromCart = async () => {
+  const removeFromCartHandler = async () => {
     const { success, message } = await removeItemFromCart(item.productId);
 
     if (!success) {
@@ -43,7 +47,7 @@ export const AddToCart = ({ cart, item }: Props) => {
     });
   };
 
-  const handleAddToCart = async () => {
+  const addToCartHandler = async () => {
     const { success, message } = await addItemsToCart(item);
 
     if (!success) {
@@ -69,6 +73,15 @@ export const AddToCart = ({ cart, item }: Props) => {
     });
   };
 
+  const handleAddToCart = () => {
+    action.current = "+";
+    startTransition(addToCartHandler);
+  };
+  const handleRemoveFromCart = () => {
+    action.current = "-";
+    startTransition(removeFromCartHandler);
+  };
+
   if (quantity === 0) {
     return (
       <Button onClick={handleAddToCart} className="w-full">
@@ -80,29 +93,35 @@ export const AddToCart = ({ cart, item }: Props) => {
   return (
     <div className="flex items-center gap-3">
       {quantity > 1 ? (
-        <Button
-          variant="outline"
-          className="h-3 w-3 rounded-xl"
+        <CartActionButton
+          isPending={isPending}
+          currentAction={action}
+          actionType="-"
           onClick={handleRemoveFromCart}
-        >
-          <Minus className="h-3 w-3" />
-        </Button>
+          icon={<Minus className="h-3 w-3" />}
+          variant="outline"
+        />
       ) : (
-        <Button
-          variant="outline"
-          className="h-3 w-3 rounded-xl"
+        <CartActionButton
+          isPending={isPending}
+          currentAction={action}
+          actionType="-"
           onClick={handleRemoveFromCart}
-        >
-          <Trash className="h-3 w-3 " />
-        </Button>
+          icon={<Trash className="h-3 w-3" />}
+          variant="outline"
+        />
       )}
 
       <div className="text-lg font-semibold">
         {quantity > 0 ? `in cart (${quantity})` : "Add to cart"}
       </div>
-      <Button className="h-3 w-3 rounded-xl" onClick={handleAddToCart}>
-        <Plus />
-      </Button>
+      <CartActionButton
+        isPending={isPending}
+        currentAction={action}
+        actionType="+"
+        onClick={handleAddToCart}
+        icon={<Plus className="h-3 w-3" />}
+      />
     </div>
   );
 };
