@@ -14,3 +14,11 @@ export function formatPrice(price: number): string {
 
   return `$${integerPart}.${decimalPart}`;
 }
+
+export function roundToTwoDecimals(num: number | string): number {
+  if (typeof num === "string") {
+    return roundToTwoDecimals(parseFloat(num));
+  }
+
+  return Math.round((num + Number.EPSILON) * 100) / 100;
+}

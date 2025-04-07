@@ -29,7 +29,6 @@ model Product {
   isFeatured  Boolean  @default(false)
   banner      String?
   createdAt   DateTime @default(now()) @db.Timestamp(6)
-  Cart        Cart[]
 }
 
 model User {
@@ -104,9 +103,7 @@ model Cart {
   taxPrice      Decimal  @map("tax_price") @db.Decimal(12, 2)
   createdAt     DateTime @default(now()) @db.Timestamp(6)
 
-  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  Product   Product? @relation(fields: [productId], references: [id])
-  productId String?  @db.Uuid
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("carts")
 }

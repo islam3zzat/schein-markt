@@ -4,6 +4,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./db/prisma";
 import { z } from "zod";
 import { compareSync } from "bcrypt-ts-edge";
+import { cookies } from "next/headers";
+import { NextResponse } from "next/server";
 
 const credentialsSchema = z.object({
   email: z.string().email(),

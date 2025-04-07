@@ -69,7 +69,7 @@ export const cartItemSchema = z.object({
 });
 
 export const cartDraftSchema = z.object({
-  items: z.array(cartItemSchema).min(1, "Cart must have at least one item"),
+  items: z.array(cartItemSchema),
   itemsPrice: z.number().nonnegative(),
   taxPrice: z.number().nonnegative(),
   shippingPrice: z.number().nonnegative(),
@@ -77,5 +77,5 @@ export const cartDraftSchema = z.object({
   sessionCartId: z.string({
     message: "Session cart ID is required",
   }),
-  userId: z.string().nullable(),
+  userId: z.string().optional(),
 });
